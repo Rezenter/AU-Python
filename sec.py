@@ -2,6 +2,8 @@ __author__ = 'rezenter'
 
 s4 = 'read'
 snb = 'bhjkla adsf not adfl; bad ghk'
+a = 'qwer'
+b = 'aaabb'
 
 def verbing(s):
     if len(s) > 2:
@@ -21,3 +23,12 @@ def not_bad(s):
     return res
 print(not_bad(snb))
 
+def front_back(a, b):
+    div1 = ((len(a))/2)+len(a) % 2
+    div2 = ((len(b))/2)+len(b) % 2
+    res = a[:div1]
+    res += b[:div2]
+    res += a[div1:]
+    res += b[div2:]
+    return res
+print(front_back(a, b))
