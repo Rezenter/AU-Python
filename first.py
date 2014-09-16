@@ -1,8 +1,8 @@
 __author__ = 'rezenter'
 
 l = [1, 2, 2, 2, 3]
-l1 = [1, 2, 8, 9, 10]
-l2 = [3, 3, 3, 4]
+l1 = [1, 1, 2, 8]
+l2 = [1, 3, 3, 4]
 
 
 def remove_adjacent(lst):
@@ -15,7 +15,8 @@ def remove_adjacent(lst):
             prev = tmp
     res.reverse()
     return res
-print remove_adjacent(l)
+print(remove_adjacent(l))
+
 
 def linear_merge(lst1, lst2):
     lst = []
@@ -23,32 +24,26 @@ def linear_merge(lst1, lst2):
         return lst2
     if len(lst2) == 0:
         return lst1
-    t1 = lst1.pop(0)
-    t2 = lst2.pop(0)
-    while len(lst1) != 0:
-        if t1 < t2:
-            lst.append(t1)
-            t1 = lst1.pop(0)
-
-        else:
-            lst.append(t2)
-            if len(lst2) != 0:
-                t2 = lst2.pop(0)
+    global i2
+    i2 = 0
+    global i1
+    i1 = 0
+    while True:
+        if i1 < len(lst1) and i2 < len(lst2):
+            if lst1[i1] < lst2[i2]:
+                lst.append(lst1[i1])
+                i1 += 1
             else:
-                lst.append(t1)
-                lst.append(lst1)
+                lst.append(lst2[i2])
+                i2 += 1
+        else:
+            if i1 < len(lst1):
+                for i1 in range(i1, len(lst1)):
+                    lst.append(lst1[i1])
+                return lst
+            else:
+                for i2 in range(i2, len(lst2)):
+                    lst.append(lst2[i2])
                 return lst
 
-    while len(lst2) != 0:
-        if t1 < t2:
-            lst.append(t1)
-            t1 = None
-        else:
-            lst.append(t2)
-            if len(lst2) != 0:
-                t2 = lst2.pop(0)
-    lst.append(t2)
-    if t1 is not None:
-        lst.append(t1)
-    return lst
-print linear_merge(l1, l2)
+print(linear_merge(l1, l2))
