@@ -24,7 +24,7 @@ args = sys.argv
 if args[1].find('if') != -1 and args[3].find('of') != -1:
     path_in = args[2]
     path_out = args[4]
-    
+    reverser(path_in, path_out)
 elif args[3].find('if') != -1 and args[1].find('of') != -1:
     path_in = args[4]
     path_out = args[2]
