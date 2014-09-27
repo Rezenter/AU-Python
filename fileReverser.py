@@ -1,6 +1,8 @@
 __author__ = 'rezenter'
 
 import sys
+
+
 def reverser(path_in, path_out):
     file_in = open(path_in + 'in.txt', 'r')
     result = ''
@@ -30,4 +32,4 @@ elif args[3].find('if') != -1 and args[1].find('of') != -1:
     path_out = args[2]
     reverser(path_in, path_out)
 else:
-    print('For science you monster')
+    print('For science you`re monster')
