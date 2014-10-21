@@ -5,6 +5,7 @@ all = file_in.readlines()
 n = all[0]
 file_in.close()
 
+
 def find(num):
     mid = int(math.pow(num, 0.5))
     if num == 1:

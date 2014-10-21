@@ -27,6 +27,6 @@ def get_wage(w_name):
 print(get_wage('b b'))
 print(ord('а'))
 print(ord('я'))
-print(ord('А'))
-print(ord('Я'))
-''
+
+
+
