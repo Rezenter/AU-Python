@@ -7,30 +7,18 @@ nails = []
 for a in range(0, n):
     nails.append(int(s[a]))
 result = 0
-nails.sort(reverse=True)
-i = 0
-if n % 2 == 0:
-    while i in range(0, n-1):
-        result += nails[i] - nails[i + 1]
-        i += 2
+nails.sort()
+if len(nails) >= 3:
+    result = [0, nails[1] - nails[0], nails[2] - nails[0]]
+    for i in range(3, len(nails)):
+        result.append(min(result[i-1], result[i-2]) + nails[i] - nails[i-1])
+        print(nails[i] - nails[i-1])
+elif len(nails) == 2:
+    result = [nails[1] - nails[0]]
 else:
-    d = nails[0] - nails[n-1]
-    f = 0
-    for c in range(0, n-2):
-        tmp = nails[c] - nails[c + 1]
-        if d > tmp:
-            d = tmp
-            f = c
-        c += 2
-    while i in range(0, c):
-        result += nails[i] - nails[i + 1]
-        i += 2
-    result += nails[c] - nails[c + 1]
-    b = c
-    while b in range(c, n-1):
-        result += nails[b] - nails[b + 1]
-        b += 2
+    result = [0]
+
 print(result)
 file = open('nails.out', 'w')
-file.write(str(result))
+file.write(str(result[len(result) - 1]))
 file.close()

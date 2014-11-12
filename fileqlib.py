@@ -2,8 +2,7 @@ __author__ = 'rezenter'
 import os
 import hashlib
 files = {}
-first = ''
-second = ''
+paths = []
 
 
 def hashing(path):
@@ -21,28 +20,25 @@ def hashing(path):
 
 def files_equal(file1_path, file2_path):
     global files
-    global first
-    global second
-    if first == '':
-        first = file1_path
-    if second == '':
-        first = file2_path
+    global paths
     if not os.path.exists(file1_path) or not os.path.exists(file2_path):
         return None
     if not os.path.isfile(file1_path) or not os.path.isfile(file2_path):
         return None
     if os.path.getsize(file1_path) != os.path.getsize(file2_path):
         return False
-    if len(files) == 128:  # so we should delete the latest note
-        del files[first]   # i delete the first element, and i will have to delete it again at least after 128 scans
-        first = file1_path
+    if len(files) == 128:
+        del files[paths[0]]
+        del paths[0]
     if file1_path not in files or files[file1_path][1] != os.stat(file1_path).st_mtime_ns:
         files[file1_path] = [hashing(file1_path), os.stat(file1_path).st_mtime_ns]
+        paths.append(file1_path)
     if len(files) == 128:
-        del files[second]
-        second = file2_path
+        del files[paths[0]]
+        del paths[0]
     if file2_path not in files or files[file2_path][1] != os.stat(file2_path).st_mtime_ns:
         files[file2_path] = [hashing(file2_path), os.stat(file2_path).st_mtime_ns]
+        paths.append(file2_path)
     if files[file1_path][0] != files[file2_path][0]:
         return False
     chunk = 4096

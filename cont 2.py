@@ -1,20 +1,31 @@
 __author__ = 'a'
-file = open('joseph.in', 'r')
-s = file.readline().split()
+import re
+file = open('patterns.in', 'r')
+pat = file.readline()
+pat = pat[:len(pat) - 1]
+s = file.readline()
 file.close()
-n = int(s[0])
-p = int(s[1])
-lst = []
-for i in range(1, n+1):
-    lst.append(i)
-a = len(lst)
-while a != 1:
-    tmp = p % a
-    if tmp == 0:
-        lst.pop()
+i = 0
+patt = ''
+while i < len(pat):
+    char = pat[i]
+    if char == '?':
+        patt += '.'
+    elif char == '*':
+        patt += '(.)*'
     else:
-        lst.pop(tmp-1)
-    a = len(lst)
-file = open('joseph.out', 'w')
-file.write(str(lst[0]))
+        patt += char
+    i += 1
+pattern = re.compile(patt)
+if re.match(pattern, s) is None:
+    result = 'NO'
+else:
+    result = 'YES'
+i = 0
+while i < len(s) - 1:
+    if s[i] != '.' and not s[i].isalpha():
+        result = 'NO'
+    i += 1
+file = open('patterns.out', 'w')
+file.write(str(result))
 file.close()
