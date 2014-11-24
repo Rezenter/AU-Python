@@ -1,5 +1,6 @@
 __author__ = 'rezenter'
 import functional as f
+'''"import functional *"'''
 import sys
 
 
