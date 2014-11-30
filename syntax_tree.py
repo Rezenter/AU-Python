@@ -2,6 +2,42 @@ __author__ = 'rezenter'
 import tree
 
 
+def parseExpr(expr):
+    expr = expr.split()
+    buffer = []
+    flag = True
+    e = 0
+    for i in expr:
+        try:
+            i = int(i)
+            buffer.append(IntLiteralNode(i))
+        except ValueError:
+            try:
+                if i == "print":
+                    buffer.append(PrintNode(buffer.pop()))
+                elif i == "!":
+                    buffer.append(UnMinusNode(buffer.pop()))
+                elif i == "+":
+                    buffer.append(BinPlusNode(buffer.pop(), buffer.pop()))
+                elif i == '-':
+                    r = buffer.pop()
+                    buffer.append(BinMinusNode(buffer.pop(), r))
+                elif i == "*":
+                    buffer.append(BinMulNode(buffer.pop(), buffer.pop()))
+                elif i == "/" or i == '//':
+                    r = buffer.pop()
+                    buffer.append(BinDivNode(buffer.pop(), r))
+            except IndexError:
+                e = i
+                flag = False
+                break
+    if flag and len(buffer) == 1:
+        return buffer[0]
+    elif not flag:
+        return IntLiteralNode("Not enough args for " + str(e))
+    return IntLiteralNode("Too many args in expr")
+
+
 class ASTNode(tree.Node):
     @staticmethod
     def execute(self):
