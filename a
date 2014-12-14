@@ -1,0 +1,13 @@
+import sys
+class WordCounter:
+	def __init__(filename):
+		pass
+	def print_words():
+	    def nested_function():
+            pass
+			pass
+	def print_top(count):
+		    pass
+def main():
+		w = WordCounter(sys.argv[1])
+		print(w.print_top(20))
